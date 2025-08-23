@@ -3,11 +3,11 @@
 template<class T>
 class Node {
 public: 
-    T term; 
-    Node* next; 
+    T data; 
+    Node<T>* next; 
 
-    Node(const T &term) 
-    : term(term) {
+    Node(const T &data) 
+    : data(data) {
         next = nullptr; 
     }
 }; 
@@ -19,8 +19,8 @@ protected:
     Node<T> *top; 
 
 public: 
-    Stack(const T &term) {
-        Node* newNode = new Node(term); 
+    Stack(const T &data) {
+        Node<T>* newNode = new Node<T>(data); 
         top = newNode; 
         height = 1; 
     }
@@ -36,8 +36,8 @@ public:
         return height; 
     }
 
-    void push(const T &term) {
-        Node* newNode = new Node(term); 
+    void push(const T &data) {
+        Node<T>* newNode = new Node<T>(data); 
 
         newNode->next = top; 
         top = newNode; 
@@ -47,10 +47,10 @@ public:
 
     T pop() {
         if(height == 0)
-            return INT32_MIN; 
+            return nullptr; 
 
-        Node* temp = top; 
-        T poppedValue = top->value;  
+        Node<T>* temp = top; 
+        T poppedValue = top->data;  
 
         if(height == 1) {
             top = nullptr; 
@@ -67,10 +67,10 @@ public:
     }
 
     void printStack() {
-        Node* temp = top; 
+        Node<T>* temp = top; 
 
         while(temp != nullptr) {
-            std::cout << temp->value << ' ';
+            std::cout << temp->data << ' ';
             temp = temp->next; 
         }
     
@@ -78,7 +78,7 @@ public:
     }
 
     ~Stack() {
-        Node* temp = top; 
+        Node<T>* temp = top; 
 
         while(top != nullptr) {
             top = temp->next; 
